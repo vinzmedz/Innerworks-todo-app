@@ -119,6 +119,19 @@ class todo
         return $data;
     }
  
+    
+    public function update_todo($data)
+    {
+        $pdo = new PDO(self::$dsn . self::$db_dg, self::$user, self::$pass);
+        $stm = $pdo->prepare("UPDATE tbl_todos SET todo_status=2 WHERE todo_id=:todo_id");
+        $stm->bindParam(':todo_id', $data['id'], PDO::PARAM_INT);
+        $stm->execute();
+
+        $data['rows'] = array('success');
+
+        return $data;
+    }
+
     public function update_task($data)
     {
         $pdo = new PDO(self::$dsn . self::$db_dg, self::$user, self::$pass);
